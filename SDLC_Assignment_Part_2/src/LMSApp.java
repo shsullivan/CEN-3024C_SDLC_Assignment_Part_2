@@ -35,26 +35,35 @@ public class LMSApp {
 
             switch (selection) {
                 case "1": // Add patron
-                    // Prompt user for all attribute information and store in variables to
-                    // pass to the Patron constructor
-                    System.out.println("Enter Patron's 7 digit ID: ");
-                    String id = sc.nextLine().trim();
-                    System.out.println("Enter Patron's name: ");
-                    String name = sc.nextLine().trim();
-                    System.out.println("Enter Patron's address: ");
-                    String address = sc.nextLine().trim();
-                    System.out.println("Enter Patron's current overdue fine balance (Min: $0 Max: $250): ");
-                    double fineAmount = Double.parseDouble(sc.nextLine().trim());
+                    try { //Try block to for any exceptions thrown by input validation
+                        // Prompt user for all attribute information and store in variables to
+                        // pass to the Patron constructor
+                        System.out.println("Enter Patron's 7 digit ID: ");
+                        String id = sc.nextLine().trim();
+                        System.out.println("Enter Patron's name: ");
+                        String name = sc.nextLine().trim();
+                        System.out.println("Enter Patron's address: ");
+                        String address = sc.nextLine().trim();
+                        System.out.println("Enter Patron's current overdue fine balance (Min: $0 Max: $250): ");
+                        double fineAmount = Double.parseDouble(sc.nextLine().trim());
 
-                    Patron patron = new Patron(id, name, address, fineAmount); // Instantiate new Patron
+                        Patron patron = new Patron(id, name, address, fineAmount); // Instantiate new Patron
 
-                    // Attempt to add new patron to HashMap and provide feedback on success or failure
-                    if (admin.addPatron(patron)) {
-                        System.out.println("Patron added successfully!");
-                    }// end if
-                    else {
-                        System.out.println("Patron ID exists! Patron not added!");
-                    }// end else
+                        // Attempt to add new patron to HashMap and provide feedback on success or failure
+                        if (admin.addPatron(patron)) {
+                            System.out.println("Patron added successfully!");
+                        }// end if
+                        else {
+                            System.out.println("Patron ID exists! Patron not added!");
+                        }// end else
+                    }
+                    catch (NumberFormatException e) { // Catch text entered for fine amount
+                        System.out.println("Invalid entry! Fine amount must be a number. Please try again.");
+                    }// end catch NumberFormatException
+                    catch (IllegalArgumentException e) { // Catch input validation exception from Patron constructor
+                        System.out.println("Error: " + e.getMessage());
+                    }// end IllegalArgumentException
+
                     break;
 
                 case "2": // Add patron(s) from text file
@@ -75,7 +84,12 @@ public class LMSApp {
                     break;
 
                 case "4": // List all Patrons
-                    admin.listAllPatrons();
+                    if(admin.listAllPatrons()) {
+                        System.out.println("---End of List---");
+                    }// end if
+                    else {
+                        System.out.println("Patron list is empty!");
+                    }// end else
                     break;
 
                 case "5":
