@@ -104,6 +104,6 @@ public class Patron {
     //Override the toString method to display Patron information in a readable format
     @Override
     public String toString() {
-        return ID + "|" + name + "|" + address + "|" + fineAmount;
+        return ID + " | " + name + " | " + address + " | $" + fineAmount;
     }// end toString override
 }// end Patron class

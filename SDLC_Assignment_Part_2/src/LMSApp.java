@@ -84,6 +84,7 @@ public class LMSApp {
                     break;
 
                 case "4": // List all Patrons
+                    System.out.println("---Patron List---");
                     if(admin.listAllPatrons()) {
                         System.out.println("---End of List---");
                     }// end if
