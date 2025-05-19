@@ -61,7 +61,7 @@ public class LMSApp {
                         System.out.println("Invalid entry! Fine amount must be a number. Please try again.");
                     }// end catch NumberFormatException
                     catch (IllegalArgumentException e) { // Catch input validation exception from Patron constructor
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println("***Error: " + e.getMessage() + "***");
                     }// end IllegalArgumentException
 
                     break;
